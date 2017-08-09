@@ -4,14 +4,19 @@ import { NativeStorage } from '@ionic-native/native-storage';
 
 import { ApiServiceProvider } from '../../providers/api-service/api-service';
 
+/**
+ * Generated class for the UsersPage page.
+ *
+ * See http://ionicframework.com/docs/components/#navigation for more info
+ * on Ionic pages and navigation.
+ */
+
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-users',
+  templateUrl: 'users.html',
 })
-export class HomePage {
-
+export class UsersPage {
   public people: any;
-
   public user = { ImageURL: '', Name: '', isAdmin: false, Status: 0, sts: '' };
   constructor(public navCtrl: NavController, public apiService: ApiServiceProvider, public nativeStorage: NativeStorage, private loadingCtrl: LoadingController) {
     let env = this;
@@ -29,13 +34,27 @@ export class HomePage {
         //env.navCtrl.push(LoginPage);
       });
 
-    if (env.user.Status == 10)
-      env.user.sts = "Pending";
-    else if (env.user.Status == 30) {
-      env.user.sts = "Rejected";
-    }
-    else {
-      env.user.sts = "Approved";
-    }
+    env.loadPeople();
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad UsersPage');
+  }
+
+  loadPeople() {
+    let env = this;
+    let loading = env.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loading.present();
+    this.apiService.load("null")
+      .then(data => {
+        env.people = data;
+        env.people.forEach(element => {
+          let url = element.UserImageUrl;
+          element.ImageUrl = url;
+        });
+        loading.dismiss();
+      });
   }
 }

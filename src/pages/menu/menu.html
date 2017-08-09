@@ -1,0 +1,33 @@
+<ion-menu side="left" [content]="content">
+  <ion-content>
+    <ion-list>
+      <ion-item no-lines menuClose class="item-profile">
+        <div class="item-avatar">
+          <img [src]="user.ImageURL">
+          <div class="item-text-center item-text-wrap">{{user.Name}}</div>
+        </div>
+      </ion-item>
+      <ion-item no-lines menuClose (click)="openHome()">
+        Home
+      </ion-item>
+      <ion-item no-lines menuClose (click)="openAllUsers()">
+        Users
+      </ion-item>
+      <ion-item no-lines menuClose (click)="openCreateEvent()" *ngIf="user.isAdmin">
+        Create Event
+      </ion-item>
+      <ion-item no-lines menuClose (click)="openPendingRequest()" *ngIf="user.isAdmin">
+        Pending Request
+      </ion-item>
+      <ion-item no-lines menuClose (click)="openContactUs()">
+        Contact Us
+      </ion-item>
+    </ion-list>
+    <div class="wrapper">
+      <button ion-button full color="secondary" (click)="Logout()" class="startBtn">Logout
+    </button>
+    </div>
+  </ion-content>
+</ion-menu>
+
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
