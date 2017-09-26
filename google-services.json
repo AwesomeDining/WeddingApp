@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "885563698719",
+    "firebase_url": "https://wedlive-33ce0.firebaseio.com",
+    "project_id": "wedlive-33ce0",
+    "storage_bucket": "wedlive-33ce0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:885563698719:android:bd7b7bf798d28720",
+        "android_client_info": {
+          "package_name": "com.google.wedlive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "885563698719-2im4md8ac5qlsplhqeln075cno3u6nqt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByKOIZgtlazAtNmcxP2gcyaqcKu0VDGS4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:885563698719:android:6141edb9f9df4326",
+        "android_client_info": {
+          "package_name": "io.ionic.wedlive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "885563698719-2im4md8ac5qlsplhqeln075cno3u6nqt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByKOIZgtlazAtNmcxP2gcyaqcKu0VDGS4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

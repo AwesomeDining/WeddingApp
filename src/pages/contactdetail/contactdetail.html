@@ -1,19 +1,30 @@
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar transparent color="primary">
     <ion-buttons start left>
       <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     </ion-buttons>
-    <ion-title>Contact Us</ion-title>
+    <ion-title>RSVP</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-  <ion-card padding *ngFor="let data of htmlString">
-    <div [innerHTML]="'<p>' + data.Description + '</p>'"></div>
+<ion-content class="contactus">
+  <ion-card class="cardHome" padding>
+    <label>Aman Distributors</label><br/>
+    <label>Ravins India</label><br/>
+    <label>Aman Enterprises</label><br/>
+    <label>Aman Traders</label><br/><br/>
+    <div>
+      <label>Contact for any assistance:</label><br/>
+      <label>Harvinder Singh - </label><button ion-button clear item-right (click)="launchDialer(9810236364)" clear>9810236364</button><br/>
+      <label>Raman Deep Singh - </label><button ion-button clear (click)="launchDialer(9810729555)" clear>9810729555</button><br/>
+      <label>Gurpreet Singh - </label><button ion-button clear (click)="launchDialer(8800996262)" clear>8800996262</button><br/>
+      <label>Balbir Singh - </label><button ion-button clear (click)="launchDialer(9358112751)" clear>9358112751</button>
+    </div>
+    <!-- <button ion-button clear (click)="launchDialer(data.ContactNumber)" clear>{{data.ContactNumber}}</button> -->
   </ion-card>
 </ion-content>

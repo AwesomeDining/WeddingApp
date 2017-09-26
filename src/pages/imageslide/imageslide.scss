@@ -1,0 +1,35 @@
+page-imageslide {
+.imageSlidesPage{
+    background: transparent;
+    background-color: black;
+}
+
+// ion-slide.swiper-slide {
+//         left: 0%;
+//     }
+
+//     .slide-zoom {
+//         background: black;
+//     }
+
+//     .thumb-img {
+//         //padding: 10px;
+//         background-size: cover;
+//         width: 100%;
+//         height: 100%;
+    // }
+}
+ion-slide {
+    background-color: #000000;
+}
+ion-col.slideColumn{
+    background-color: #000000;
+}
+ion-row.slideRow{
+    background-color: #000000;;
+    height: 7%;
+}
+ion-slide img {
+    height: 100% !important;
+    width: 100% !important;
+}

@@ -1,6 +1,5 @@
 <ion-header>
-
-  <ion-navbar>
+  <ion-navbar transparent color="primary">
     <ion-buttons start left>
       <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
@@ -8,11 +7,204 @@
     </ion-buttons>
     <ion-title>Home</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-<ion-content class="home" *ngIf="user.Status != 20">
-  <label>
-    Your Request is {{user.sts}}.
+<ion-content class="home">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-card padding *ngIf="currStatus != 20">
+    <div>
+      <label>
+    {{user.sts}}<br/>
+    For further queries contact: <button ion-button clear (click)="launchDialer(9810729555)" style="color: white;" clear>9810729555</button>
   </label>
+    </div>
+  </ion-card>
+
+  <ion-list *ngIf="currStatus === 20">
+    <ion-card class="cardHome" padding *ngFor="let event of events">
+      <h6 style="color:white; font-style: italic; float:right;">{{event.EventDate | date:'dd MMMM, hh:mm a' : '+0530'}}</h6>
+      <div *ngIf="event.value === 0">
+        <ion-item text-wrap no-lines style="background: transparent; color: white; font-size: 2.4rem;">
+          <p style="background: transparent; color: white; font-size: 2.0rem;">{{event.Description}}</p>
+        </ion-item>
+      </div>
+      <ion-grid *ngIf="event.value === 1">
+        <ion-row class="ion-row" *ngIf="event.imageCount === 1">
+          <ion-col class="ion-col">
+            <img [src]="event.ImageUrl[1].Url" *ngIf="(event.ImageUrl[1].Url.indexOf('.jpg') > -1) && event.ImageUrl[1].Url" class="thumb-img"
+              imageViewer>
+            <!-- <img [src]="event.ImageUrl[1].Url" *ngIf="(event.ImageUrl[1].Url.indexOf('.mp4') > -1) && event.ImageUrl[1].Url" class="thumb-img"> -->
+            <video width="100%" height="100%" poster="{{event.ImageUrl[1].Thumbnail}}" *ngIf="(event.ImageUrl[1].Url.indexOf('.mp4') > -1) && event.ImageUrl[1].Url"
+              controls>
+              <source [src]="event.ImageUrl[1].Url" type="video/mp4">
+              <source src="event.ImageUrl[1].Url" type="video/ogg"> Your browser does not support the video tag.
+            </video>
+            <!-- <img [src]="event.ImageUrl[1].Thumbnail" (click)="showImage(0, event.ImageUrl)" *ngIf="(event.ImageUrl[1].Url.indexOf('.mp4') > -1) && event.ImageUrl[1].Url"
+              class="thumb-img imageThumbnail">
+            <div class='vidDesc' *ngIf="(event.ImageUrl[1].Url.indexOf('.mp4') > -1) && event.ImageUrl[1].Url">
+              <img src="img/play.png" (click)="showImage(0, event.ImageUrl)" style="height: 50px;width:50px;" class='vidDesc_content'>
+            </div> -->
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-row" *ngIf="event.imageCount === 2">
+          <ion-col width-50 class="ion-col" (click)="showImage(0, event.ImageUrl)">
+            <img [src]="event.ImageUrl[1].Url" *ngIf="(event.ImageUrl[1].Url.indexOf('.jpg') > -1) && event.ImageUrl[1].Url" class="thumb-img">
+            <img [src]="event.ImageUrl[1].Thumbnail" *ngIf="(event.ImageUrl[1].Url.indexOf('.mp4') > -1) && event.ImageUrl[1].Url" class="thumb-img imageThumbnail">
+            <div class='vidDesc' *ngIf="(event.ImageUrl[1].Url.indexOf('.mp4') > -1) && event.ImageUrl[1].Url">
+              <img src="img/play.png" (click)="showImage(0, event.ImageUrl)" style="height: 50px;width:50px;" class='vidDesc_content'>
+            </div>
+          </ion-col>
+          <ion-col width-50 class="ion-col" (click)="showImage(1, event.ImageUrl)">
+            <img [src]="event.ImageUrl[2].Url" *ngIf="(event.ImageUrl[2].Url.indexOf('.jpg') > -1) && event.ImageUrl[2].Url" class="thumb-img">
+            <img [src]="event.ImageUrl[2].Thumbnail" *ngIf="(event.ImageUrl[2].Url.indexOf('.mp4') > -1) && event.ImageUrl[2].Url" class="thumb-img imageThumbnail">
+            <div class='vidDesc' *ngIf="(event.ImageUrl[2].Url.indexOf('.mp4') > -1) && event.ImageUrl[2].Url">
+              <img src="img/play.png" (click)="showImage(1, event.ImageUrl)" style="height: 50px;width:50px;" class='vidDesc_content'>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-row" *ngIf="event.imageCount === 3">
+          <ion-col class="ion-col" (click)="showImage(0, event.ImageUrl)">
+            <img [src]="event.ImageUrl[1].Url" *ngIf="(event.ImageUrl[1].Url.indexOf('.jpg') > -1) && event.ImageUrl[1].Url" class="thumb-img">
+            <img [src]="event.ImageUrl[1].Thumbnail" *ngIf="(event.ImageUrl[1].Url.indexOf('.mp4') > -1) && event.ImageUrl[1].Url" class="thumb-img imageThumbnail">
+            <div class='vidDesc' *ngIf="(event.ImageUrl[1].Url.indexOf('.mp4') > -1) && event.ImageUrl[1].Url">
+              <img src="img/play.png" (click)="showImage(0, event.ImageUrl)" style="height: 50px;width:50px;" class='vidDesc_content'>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-row" *ngIf="event.imageCount === 3">
+          <ion-col width-50 class="ion-col" (click)="showImage(1, event.ImageUrl)">
+            <img [src]="event.ImageUrl[2].Url" *ngIf="(event.ImageUrl[2].Url.indexOf('.jpg') > -1) && event.ImageUrl[2].Url" class="thumb-img">
+            <img [src]="event.ImageUrl[2].Thumbnail" *ngIf="(event.ImageUrl[2].Url.indexOf('.mp4') > -1) && event.ImageUrl[2].Url" class="thumb-img imageThumbnail">
+            <div class='vidDesc' *ngIf="(event.ImageUrl[2].Url.indexOf('.mp4') > -1) && event.ImageUrl[2].Url">
+              <img src="img/play.png" (click)="showImage(1, event.ImageUrl)" style="height: 50px;width:50px;" class='vidDesc_content'>
+            </div>
+          </ion-col>
+          <ion-col width-50 class="ion-col" (click)="showImage(2, event.ImageUrl)">
+            <img [src]="event.ImageUrl[3].Url" *ngIf="(event.ImageUrl[3].Url.indexOf('.jpg') > -1) && event.ImageUrl[3].Url" class="thumb-img">
+            <img [src]="event.ImageUrl[3].Thumbnail" *ngIf="(event.ImageUrl[3].Url.indexOf('.mp4') > -1) && event.ImageUrl[3].Url" class="thumb-img imageThumbnail">
+            <div class='vidDesc' *ngIf="(event.ImageUrl[3].Url.indexOf('.mp4') > -1) && event.ImageUrl[3].Url">
+              <img src="img/play.png" (click)="showImage(2, event.ImageUrl)" style="height: 50px;width:50px;" class='vidDesc_content'>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-row" *ngIf="event.imageCount === 4">
+          <ion-col width-50 class="ion-col" (click)="showImage(0, event.ImageUrl)">
+            <img [src]="event.ImageUrl[1].Url" *ngIf="(event.ImageUrl[1].Url.indexOf('.jpg') > -1) && event.ImageUrl[1].Url" class="thumb-img">
+            <img [src]="event.ImageUrl[1].Thumbnail" *ngIf="(event.ImageUrl[1].Url.indexOf('.mp4') > -1) && event.ImageUrl[1].Url" class="thumb-img imageThumbnail">
+            <div class='vidDesc' *ngIf="(event.ImageUrl[1].Url.indexOf('.mp4') > -1) && event.ImageUrl[1].Url">
+              <img src="img/play.png" (click)="showImage(0, event.ImageUrl)" style="height: 50px;width:50px;" class='vidDesc_content'>
+            </div>
+          </ion-col>
+          <ion-col width-50 class="ion-col" (click)="showImage(1, event.ImageUrl)">
+            <img [src]="event.ImageUrl[2].Url" *ngIf="(event.ImageUrl[2].Url.indexOf('.jpg') > -1) && event.ImageUrl[2].Url" class="thumb-img">
+            <img [src]="event.ImageUrl[2].Thumbnail" *ngIf="(event.ImageUrl[2].Url.indexOf('.mp4') > -1) && event.ImageUrl[2].Url" class="thumb-img imageThumbnail">
+            <div class='vidDesc' *ngIf="(event.ImageUrl[2].Url.indexOf('.mp4') > -1) && event.ImageUrl[2].Url">
+              <img src="img/play.png" (click)="showImage(1, event.ImageUrl)" style="height: 50px;width:50px;" class='vidDesc_content'>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-row" *ngIf="event.imageCount === 4">
+          <ion-col width-50 class="ion-col" (click)="showImage(2, event.ImageUrl)">
+            <img [src]="event.ImageUrl[3].Url" *ngIf="(event.ImageUrl[3].Url.indexOf('.jpg') > -1) && event.ImageUrl[3].Url" class="thumb-img">
+            <img [src]="event.ImageUrl[3].Thumbnail" *ngIf="(event.ImageUrl[3].Url.indexOf('.mp4') > -1) && event.ImageUrl[3].Url" class="thumb-img imageThumbnail">
+            <div class='vidDesc' *ngIf="(event.ImageUrl[3].Url.indexOf('.mp4') > -1) && event.ImageUrl[3].Url">
+              <img src="img/play.png" (click)="showImage(2, event.ImageUrl)" style="height: 50px;width:50px;" class='vidDesc_content'>
+            </div>
+          </ion-col>
+          <ion-col width-50 class="ion-col" (click)="showImage(3, event.ImageUrl)">
+            <img [src]="event.ImageUrl[4].Url" *ngIf="(event.ImageUrl[4].Url.indexOf('.jpg') > -1) && event.ImageUrl[4].Url" class="thumb-img">
+            <img [src]="event.ImageUrl[4].Thumbnail" *ngIf="(event.ImageUrl[4].Url.indexOf('.mp4') > -1) && event.ImageUrl[4].Url" class="thumb-img imageThumbnail">
+            <div class='vidDesc' *ngIf="(event.ImageUrl[4].Url.indexOf('.mp4') > -1) && event.ImageUrl[4].Url">
+              <img src="img/play.png" (click)="showImage(3, event.ImageUrl)" style="height: 50px;width:50px;" class='vidDesc_content'>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-row" *ngIf="event.imageCount === 5">
+          <ion-col width-50 class="ion-col" (click)="showImage(0, event.ImageUrl)">
+            <img [src]="event.ImageUrl[1].Url" *ngIf="(event.ImageUrl[1].Url.indexOf('.jpg') > -1) && event.ImageUrl[1].Url" class="thumb-img">
+            <img [src]="event.ImageUrl[1].Thumbnail" *ngIf="(event.ImageUrl[1].Url.indexOf('.mp4') > -1) && event.ImageUrl[1].Url" class="thumb-img imageThumbnail">
+            <div class='vidDesc' *ngIf="(event.ImageUrl[1].Url.indexOf('.mp4') > -1) && event.ImageUrl[1].Url">
+              <img src="img/play.png" (click)="showImage(0, event.ImageUrl)" style="height: 50px;width:50px;" class='vidDesc_content'>
+            </div>
+          </ion-col>
+          <ion-col width-50 class="ion-col" (click)="showImage(1, event.ImageUrl)">
+            <img [src]="event.ImageUrl[2].Url" *ngIf="(event.ImageUrl[2].Url.indexOf('.jpg') > -1) && event.ImageUrl[2].Url" class="thumb-img">
+            <img [src]="event.ImageUrl[2].Thumbnail" *ngIf="(event.ImageUrl[2].Url.indexOf('.mp4') > -1) && event.ImageUrl[2].Url" class="thumb-img imageThumbnail">
+            <div class='vidDesc' *ngIf="(event.ImageUrl[2].Url.indexOf('.mp4') > -1) && event.ImageUrl[2].Url">
+              <img src="img/play.png" (click)="showImage(1, event.ImageUrl)" style="height: 50px;width:50px;" class='vidDesc_content'>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-row" *ngIf="event.imageCount === 5">
+          <ion-col width-34 class="ion-col" (click)="showImage(2, event.ImageUrl)">
+            <img [src]="event.ImageUrl[3].Url" *ngIf="(event.ImageUrl[3].Url.indexOf('.jpg') > -1) && event.ImageUrl[3].Url" class="thumb-img">
+            <img [src]="event.ImageUrl[3].Thumbnail" *ngIf="(event.ImageUrl[3].Url.indexOf('.mp4') > -1) && event.ImageUrl[3].Url" class="thumb-img imageThumbnail">
+            <div class='vidDesc' *ngIf="(event.ImageUrl[3].Url.indexOf('.mp4') > -1) && event.ImageUrl[3].Url">
+              <img src="img/play.png" (click)="showImage(2, event.ImageUrl)" style="height: 50px;width:50px;" class='vidDesc_content'>
+            </div>
+          </ion-col>
+          <ion-col width-33 class="ion-col" (click)="showImage(3, event.ImageUrl)">
+            <img [src]="event.ImageUrl[4].Url" *ngIf="(event.ImageUrl[4].Url.indexOf('.jpg') > -1) && event.ImageUrl[4].Url" class="thumb-img">
+            <img [src]="event.ImageUrl[4].Thumbnail" *ngIf="(event.ImageUrl[4].Url.indexOf('.mp4') > -1) && event.ImageUrl[4].Url" class="thumb-img imageThumbnail">
+            <div class='vidDesc' *ngIf="(event.ImageUrl[4].Url.indexOf('.mp4') > -1) && event.ImageUrl[4].Url">
+              <img src="img/play.png" (click)="showImage(3, event.ImageUrl)" style="height: 50px;width:50px;" class='vidDesc_content'>
+            </div>
+          </ion-col>
+          <ion-col width-33 (click)="showImage(4, event.ImageUrl)" class="ion-col">
+            <img [src]="event.ImageUrl[5].Url" *ngIf="(event.ImageUrl[5].Url.indexOf('.jpg') > -1) && event.ImageUrl[5].Url" class="thumb-img">
+            <img [src]="event.ImageUrl[5].Thumbnail" *ngIf="(event.ImageUrl[5].Url.indexOf('.mp4') > -1) && event.ImageUrl[5].Url" class="thumb-img imageThumbnail">
+            <div class='vidDesc' *ngIf="(event.ImageUrl[5].Url.indexOf('.mp4') > -1) && event.ImageUrl[5].Url">
+              <img src="img/play.png" (click)="showImage(4, event.ImageUrl)" style="height: 50px;width:50px;" class='vidDesc_content'>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-row" *ngIf="event.imageCount > 5">
+          <ion-col width-50 class="ion-col" (click)="showImage(0, event.ImageUrl)">
+            <img [src]="event.ImageUrl[1].Url" *ngIf="(event.ImageUrl[1].Url.indexOf('.jpg') > -1) && event.ImageUrl[1].Url" class="thumb-img">
+            <img [src]="event.ImageUrl[1].Thumbnail" *ngIf="(event.ImageUrl[1].Url.indexOf('.mp4') > -1) && event.ImageUrl[1].Url" class="thumb-img imageThumbnail">
+            <div class='vidDesc' *ngIf="(event.ImageUrl[1].Url.indexOf('.mp4') > -1) && event.ImageUrl[1].Url">
+              <img src="img/play.png" (click)="showImage(0, event.ImageUrl)" style="height: 50px;width:50px;" class='vidDesc_content'>
+            </div>
+          </ion-col>
+          <ion-col width-50 class="ion-col" (click)="showImage(1, event.ImageUrl)">
+            <img [src]="event.ImageUrl[2].Url" *ngIf="(event.ImageUrl[2].Url.indexOf('.jpg') > -1) && event.ImageUrl[2].Url" class="thumb-img">
+            <img [src]="event.ImageUrl[2].Thumbnail" *ngIf="(event.ImageUrl[2].Url.indexOf('.mp4') > -1) && event.ImageUrl[2].Url" class="thumb-img imageThumbnail">
+            <div class='vidDesc' *ngIf="(event.ImageUrl[2].Url.indexOf('.mp4') > -1) && event.ImageUrl[2].Url">
+              <img src="img/play.png" (click)="showImage(1, event.ImageUrl)" style="height: 50px;width:50px;" class='vidDesc_content'>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-row" *ngIf="event.imageCount > 5">
+          <ion-col width-33 class="ion-col" (click)="showImage(2, event.ImageUrl)">
+            <img [src]="event.ImageUrl[3].Url" *ngIf="(event.ImageUrl[3].Url.indexOf('.jpg') > -1) && event.ImageUrl[3].Url" class="thumb-img">
+            <img [src]="event.ImageUrl[3].Thumbnail" *ngIf="(event.ImageUrl[3].Url.indexOf('.mp4') > -1) && event.ImageUrl[3].Url" class="thumb-img imageThumbnail">
+            <div class='vidDesc' *ngIf="(event.ImageUrl[3].Url.indexOf('.mp4') > -1) && event.ImageUrl[3].Url">
+              <img src="img/play.png" (click)="showImage(2, event.ImageUrl)" style="height: 50px;width:50px;" class='vidDesc_content'>
+            </div>
+          </ion-col>
+          <ion-col width-33 class="ion-col" (click)="showImage(3, event.ImageUrl)">
+            <img [src]="event.ImageUrl[4].Url" *ngIf="(event.ImageUrl[4].Url.indexOf('.jpg') > -1) && event.ImageUrl[4].Url" class="thumb-img">
+            <img [src]="event.ImageUrl[4].Thumbnail" *ngIf="(event.ImageUrl[4].Url.indexOf('.mp4') > -1) && event.ImageUrl[4].Url" class="thumb-img imageThumbnail">
+            <div class='vidDesc' *ngIf="(event.ImageUrl[4].Url.indexOf('.mp4') > -1) && event.ImageUrl[4].Url">
+              <img src="img/play.png" (click)="showImage(3, event.ImageUrl)" style="height: 50px;width:50px;" class='vidDesc_content'>
+            </div>
+          </ion-col>
+          <ion-col width-33 (click)="showGallery(event.ImageUrl)" class="ion-col imageLast">
+            <img [src]="event.ImageUrl[5].Url" *ngIf="(event.ImageUrl[5].Url.indexOf('.jpg') > -1) && event.ImageUrl[5].Url" class="thumb-img">
+            <img [src]="event.ImageUrl[5].Thumbnail" *ngIf="(event.ImageUrl[5].Url.indexOf('.mp4') > -1) && event.ImageUrl[5].Url" class="thumb-img">
+            <div class='vidDesc' *ngIf="(event.ImageUrl[5].Url.indexOf('.mp4') > -1) && event.ImageUrl[5].Url">
+              <img src="img/play.png" style="height: 50px;width:50px;" class='vidDesc_content'>
+            </div>
+            <div class='description'>
+              <p class='description_content'>See All</p>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+  </ion-list>
 </ion-content>

@@ -1,0 +1,70 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Search Location</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)='toggleSearch()'>
+        <ion-icon name="search"></ion-icon>
+      </button>
+            <button ion-button block (click)="SetLocation()" [hidden]="!search">Set</button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<div class="currentitem" *ngIf="currentregional">
+    <button ion-item no-lines (click)="viewPlace(currentregional.title)">
+    <h2>{{ currentregional.title }}</h2>
+    <ion-note item-right icon-only><ion-icon name="ios-arrow-forward"></ion-icon></ion-note>
+  </button>
+</div>
+
+<ion-content>
+    <!-- <ion-searchbar [(ngModel)]="address.place" [showCancelButton]="true" (ionInput)="updateSearch()" (ionCancel)="dismiss()"
+        placeholder="Start typing and select ...">
+    </ion-searchbar>
+    <ion-list>
+        <ion-item *ngFor="let item of autocompleteItems" (click)="chooseItem(item)">
+            {{ item.description }}
+        </ion-item>
+    </ion-list>
+    <div id="map"></div> -->
+
+
+    <div class="map">
+        <ion-searchbar #searchbar placeholder="Search" [hidden]="!search"></ion-searchbar>
+        <div id="map" #map></div>
+    </div>
+
+
+    <!-- <ion-list>
+        <ion-item margin>
+            <ion-input type="text" placeholder="Pick an address"
+                (click)="showModal()" 
+                [(ngModel)]="address.place">
+            </ion-input>
+        </ion-item>
+        <ion-item *ngIf="address.set==true">
+            <ion-icon name="pin" item-left></ion-icon>
+            <h3>Full text address</h3>
+            <p>{{ placedetails.address }}</p>
+            <h3>Street name</h3>
+            <p>{{ placedetails.components.route.long }}</p>
+            <h3>Street number</h3>
+            <p>{{ placedetails.components.street_number.long }}</p>
+            <h3>Neighbourhood</h3>
+            <p>{{ placedetails.components.sublocality_level_1.long }}</p>
+            <h3>Postal Code</h3>
+            <p>{{ placedetails.components.postal_code.long }}{{ placedetails.components.postal_code_suffix.long }}</p>    
+            <h3>City</h3>
+            <p>{{ placedetails.components.locality.long }}</p>     
+            <h3>Location geometry</h3>
+            <p>{{ placedetails.lat }}, {{ placedetails.lng }}</p>                                           
+        </ion-item>
+    </ion-list> -->
+
+
+    <!-- <ion-footer no-padding style="margin:0rem 0rem!Important;">
+        <button ion-button block (click)="SetLocation()">Set Location</button>
+    </ion-footer> -->
+</ion-content>

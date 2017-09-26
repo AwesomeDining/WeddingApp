@@ -1,0 +1,39 @@
+page-savedate {
+.savedate{
+    background: url(../img/home.png) transparent;
+background-repeat:no-repeat;
+background-size:cover;
+width:100%;
+}
+
+ion-card.card.card-md {
+    background: transparent;
+    color: white;
+    font-size: large;
+}
+
+.card-md h1 {
+    color: white;
+    font-weight: bold;
+    margin: 0;
+}
+.card-md h3 {
+    color: white;
+    /* font-size: 2.2rem; */
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+ion-header{
+    background-color: rgba(101, 98, 98, 0.13) !important;
+}
+
+.cardHome{    
+    background-color: rgba(101, 98, 98, 0.13) !important;
+}
+
+.forwrdIcon{
+    color:white;
+    float: right;
+}
+}

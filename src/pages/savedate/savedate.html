@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar transparent color="primary">
+    <ion-buttons start left>
+      <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    </ion-buttons>
+    <ion-title>Save the Date</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="savedate">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list *ngIf="user.sts == 'Approved'">
+    <ion-card class="cardHome" padding *ngFor="let event of events" (click)="getEventDetail(event)">
+      <ion-grid>
+        <ion-row>
+          <ion-col padding>
+            <h1>{{event.Name}}</h1><br/>
+            <h3>{{event.EventDate | date:'dd MMMM yyyy, EEEE, hh:mm a'}}</h3>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="arrow-forward" class="forwrdIcon"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+  </ion-list>
+</ion-content>

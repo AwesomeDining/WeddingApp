@@ -14,7 +14,6 @@ page-menu {
 
 .item-text-center
 {
-    width: 50%;
   margin: 15px auto;
   font-weight:bold;
 }
@@ -24,9 +23,64 @@ page-menu {
     margin:0 20px 0 20 px;
 }
 
+.label-md {
+    margin: 13px 8px 13px 0;
+    font-size: medium;
+}
+
 .startBtn
  {
     position: absolute;
     top: 75%;
+}
+
+.logoutBtn{
+    // position: absolute;
+    // bottom: 0;    
+    width: 100%;
+    background-color: transparent;
+    background: transparent;
+}
+.button-md-secondary {
+    color: #fff;
+    background: transparent;
+}
+
+
+
+.footer{
+    button{
+        margin-bottom: 0px;
+        margin-top: 0px;
+    }
+}
+
+
+.bottom_bar
+{
+    width: 100%;
+    background-color: aqua;
+    text-align: center;
+    background: url(../img/home.png) transparent;
+}
+
+.menu{
+    background: url(../img/home.png) transparent;
+background-repeat:no-repeat;
+background-size:cover;
+width:100%;
+}
+
+ion-content.menu{	
+	ion-list {
+		.item {
+			background: transparent;
+            color:white;
+		}
+	}
+}
+
+.toolbar-wp {
+    padding: 0px;
 }
 }

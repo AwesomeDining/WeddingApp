@@ -2,4 +2,30 @@ page-pending-requests {
 .ioniconPos{
     margin:0 20px 0 0;
 }
+
+
+.pending-requests{
+      background: url(../img/home.png) transparent;
+background-repeat:no-repeat;
+background-size:cover;
+width:100%;
+}
+
+.divIcons{
+    float: right;
+    padding-right: 10px;
+}
+
+.ioniconPos icon icon-md ion-md-checkmark item-icon {
+    margin-right: 30px;
+}
+
+ion-content.pending-requests{	
+	ion-list {
+		.item {
+			background: transparent;
+            color:white;
+		}
+	}
+}
 }

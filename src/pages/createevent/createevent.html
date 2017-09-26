@@ -1,0 +1,66 @@
+<!--
+  Generated template for the CreateeventPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar transparent color="primary">
+    <ion-buttons start left>
+      <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    </ion-buttons>
+    <ion-title>Create Event</ion-title>
+    <ion-buttons start right>
+      <button ion-button block (click)="CreateEvent()">Save</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="createevent">
+  <ion-item class="itemClass">
+    <ion-label>Event Type</ion-label>
+    <ion-select [(ngModel)]="savetheDate" style="color: white;" (ionChange)="optionsFn();">
+      <ion-option value="false">Home Event</ion-option>
+      <ion-option value="true">Event</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item class="itemClass" *ngIf="showAll">
+    <ion-label color="primary" floating>Name</ion-label>
+    <ion-input class="inputClass" [(ngModel)]="eventName"></ion-input>
+  </ion-item>
+
+  <ion-item class="itemClass">
+    <ion-label color="primary" floating>Description</ion-label>
+    <ion-textarea class="inputClass" [(ngModel)]="eventDescription"></ion-textarea>
+  </ion-item>
+
+  <ion-item class="itemClass" *ngIf="showAll">
+    <ion-label color="primary" floating>Date</ion-label>
+    <ion-datetime class="inputClass" displayFormat="DD MMMM YYYY, DDDD, hh:mm A" [(ngModel)]="eventDate"></ion-datetime>
+  </ion-item>
+
+  <!-- <ion-item class="itemClass">
+    <ion-label>Save the date</ion-label>
+    <ion-checkbox class="inputClass" [(ngModel)]="isDateSaved"></ion-checkbox>
+  </ion-item> -->
+
+
+  <button ion-button round (click)="presentActionSheet()">Upload Media</button>
+  <ion-label color="primary" *ngIf="imageCount">{{imageCount}} images selected</ion-label>
+  <!-- <button ion-button round (click)="SetLocation()" *ngIf="showAll">Set Location</button>
+  <ion-label color="primary" *ngIf="isLocationSet && showAll">Location Done</ion-label> -->
+
+
+
+  <!-- <div class="postEventBtn">
+    <button ion-button full (click)="CreateEvent()">Create</button>
+  </div> -->
+
+  <!-- <ion-footer no-padding style="margin:0rem 0rem!Important;">
+    <button ion-button block color="primary" (click)="CreateEvent()">Create</button>
+  </ion-footer> -->
+</ion-content>

@@ -1,5 +1,5 @@
 <ion-menu side="left" [content]="content">
-  <ion-content>
+  <ion-content class="menu">
     <ion-list>
       <ion-item no-lines menuClose class="item-profile">
         <div class="item-avatar">
@@ -7,27 +7,69 @@
           <div class="item-text-center item-text-wrap">{{user.Name}}</div>
         </div>
       </ion-item>
-      <ion-item no-lines menuClose (click)="openHome()">
+      <ion-item tappable no-lines menuClose (click)="openPage(homePage)" index="0">
         Home
+      </ion-item>
+      <ion-item tappable no-lines menuClose (click)="openPage(createEventPage)" index="1" *ngIf="user.isAdmin">
+        Create Event
+      </ion-item>
+      <ion-item tappable no-lines menuClose (click)="openPage(eventsPage)" *ngIf="user.Status == 20" index="2">
+        Events
+      </ion-item>
+      <ion-item tappable no-lines menuClose (click)="openPage(saveDatePage)" *ngIf="user.Status == 20" index="2">
+        Save the Date
+      </ion-item>
+      <ion-item tappable no-lines menuClose (click)="openPage(takeMeToVenuePage)" *ngIf="user.Status == 20" index="4">
+        Take Me To Venue
+      </ion-item>
+      <ion-item tappable no-lines menuClose (click)="openPage(imageGalleryPage)" *ngIf="user.Status == 20" index="3">
+        Gallery
+      </ion-item>
+      <ion-item tappable no-lines menuClose (click)="openPage(usersPage)" index="5">
+        Users
+      </ion-item>
+      <ion-item tappable no-lines menuClose (click)="openPage(pendingRequestPage)" *ngIf="user.isAdmin" index="6">
+        Pending Request
+      </ion-item>
+      <ion-item tappable no-lines menuClose (click)="openPage(rsvpPage)" index="7">
+        RSVP
+      </ion-item>
+
+      <!-- <ion-item no-lines menuClose (click)="openHome()">
+        Home
+      </ion-item>
+      <ion-item no-lines menuClose (click)="showEventPage()" *ngIf="user.isAdmin">
+        Create Event
+      </ion-item>
+      <ion-item no-lines menuClose (click)="savetheDate()" *ngIf="user.Status == 20">
+        Save the Date
+      </ion-item>
+      <ion-item no-lines menuClose (click)="showGallery()" *ngIf="user.Status == 20">
+        Gallery
+      </ion-item>
+      <ion-item no-lines menuClose (click)="takemetovenue()" *ngIf="user.Status == 20">
+        Take Me To Venue
       </ion-item>
       <ion-item no-lines menuClose (click)="openAllUsers()">
         Users
-      </ion-item>
-      <ion-item no-lines menuClose (click)="openCreateEvent()" *ngIf="user.isAdmin">
-        Create Event
       </ion-item>
       <ion-item no-lines menuClose (click)="openPendingRequest()" *ngIf="user.isAdmin">
         Pending Request
       </ion-item>
       <ion-item no-lines menuClose (click)="openContactUs()">
-        Contact Us
-      </ion-item>
+        RSVP
+      </ion-item> -->
+
+
+      <!-- <ion-item no-lines menuClose (click)="openSamplePage()">
+        Map
+      </ion-item> -->
     </ion-list>
-    <div class="wrapper">
-      <button ion-button full color="secondary" (click)="Logout()" class="startBtn">Logout
-    </button>
-    </div>
+    <!-- <div class="logoutBtn"><button ion-button full color="secondary" (click)="Logout()" position="bottom">Logout</button></div> -->
   </ion-content>
+  <ion-footer class="logoutBtn" no-padding style="margin:0rem 0rem!Important;">
+    <button ion-button block clear style="color:white;" (click)="Logout()">Logout</button>
+  </ion-footer>
 </ion-menu>
 
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

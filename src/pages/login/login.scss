@@ -2,4 +2,70 @@ page-login{
     .btnfbLogin{
         margin-top:5%;
     }
+
+    .getstart 
+{
+     background: url(../img/welcome.png);
+background-repeat:no-repeat;
+background-size:cover;
+width:100%;
+}
+.bottomLogin{
+    position: absolute;
+    width: 100%;
+    //padding-right: 30px;
+    bottom: 1%;
+    //display: inline-block;
+    text-align: center;
+}
+
+
+video {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -100;
+        transform: translateX(-50%) translateY(-50%);
+    }
+
+.lblLogin{
+    text-align: center;
+    color: white;
+}
+
+.btnSocialLogin{
+        border-radius: 50%;
+    height: 80px;
+    width: 80px;
+    background: transparent;
+    border-color: white;
+    border-width: 26px;
+}
+
+.fbBtn{
+    font-size: 3.4em;
+    color: royalblue;
+    border-color: white;
+}
+
+.googleBtn{
+    font-size: 3.4em;
+    color: royalblue;
+    border-color: white;
+}
+
+.inner
+{
+    display: inline-block;
+}
+.logoBtn{
+    width:20%;
+    height: 20%;
+    margin: 20px;
+    
+}
 }

@@ -1,3 +1,38 @@
 page-contactdetail {
+ion-card.card.card-md {
+    background: transparent;
+    /* color: white; */
+    color: mediumvioletred;
+    font-size: large;
+}
 
+.contactus{
+      background: url(../img/home.png) transparent;
+background-repeat:no-repeat;
+background-size:cover;
+width:100%;
+color:white;
+font-size: medium;
+}
+
+ion-card.card.card-md {
+    background: transparent;
+    color:white;
+    font-size: large;
+}
+
+.card-md p{
+    color:white !important;
+}
+
+ion-header{
+    background-color: rgba(101, 98, 98, 0.13) !important;
+}
+
+.cardHome{    
+    background-color: rgba(101, 98, 98, 0.13) !important;
+}
+.button-clear-md{
+    color:white;
+}
 }

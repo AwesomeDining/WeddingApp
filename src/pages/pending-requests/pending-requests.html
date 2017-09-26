@@ -1,29 +1,39 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar transparent color="primary">
     <ion-buttons start left>
       <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     </ion-buttons>
     <ion-title>Pending Request</ion-title>
+
+    <ion-buttons start right *ngIf="people">
+      <button ion-button (click)="EnableSelect()" *ngIf="!selectDone && !selectCancel">
+        <ion-icon name="md-checkbox-outline"></ion-icon>
+      </button>
+      <button ion-button clear (click)="SelectAll()" *ngIf="selectDone && selectCancel">OK</button>
+      <button ion-button clear (click)="unSelectAll()" *ngIf="selectDone && selectCancel">Cancel</button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content class="pending-requests">
   <ion-list>
-    <ion-item *ngFor="let person of people" class="item item-button-right">      
+    <ion-item *ngFor="let person of people" class="item item-button-right">
       <ion-avatar item-left>
-        <img [src]="person.ImageURL">
+        <img [src]="person.ImageUrl">
       </ion-avatar>
       <h2>{{person.UserName}} </h2>
       <!-- <button item-right clear (click)='clearInputText($event)'>
         <ion-icon name="md-checkmark"></ion-icon>
     </button> -->
 
-    <!-- <button ion-button icon-only clear item-right (click)="clearInputText(person)"><ion-icon name="md-checkmark"></ion-icon></button> -->
-
-      <ion-icon (click)="accept($event, person)" class="ioniconPos" item-right name="md-checkmark"></ion-icon>
-      <ion-icon (click)="cancel($event, person)" class="ioniconPos" item-right name="md-close"></ion-icon>
+      <!-- <button ion-button icon-only clear item-right (click)="clearInputText(person)"><ion-icon name="md-checkmark"></ion-icon></button> -->
+      <div class="divIcons" *ngIf="!(selectDone)">
+        <ion-icon (click)="accept($event, person)" class="ioniconPos" item-right name="md-checkmark"></ion-icon>
+        <ion-icon (click)="cancel($event, person)" class="ioniconPos" item-right name="md-close"></ion-icon>
+      </div>
+      <ion-checkbox start right class="inputClass" *ngIf="selectDone" [(ngModel)]="person.checked" value="person.Id"></ion-checkbox>
     </ion-item>
   </ion-list>
 </ion-content>

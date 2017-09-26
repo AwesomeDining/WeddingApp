@@ -1,9 +1,16 @@
+<ion-content overflow-scroll="true" padding class="getstart">
 
-
-<ion-content>
-    <div padding>
-        <ion-label class="lblforgotPwd">Login with </ion-label>
-        <button ion-button class="btnSocialLogin" (click)="fbLogin()" color="Default" block icon-left><ion-icon name="logo-facebook"></ion-icon> Login with Facebook</button>
-         <button ion-button class="btnSocialLogin" block color="danger" (click)="googleLogin()"><ion-icon name="logo-googleplus"></ion-icon> Login with Google</button> 
+  <!-- <video autoplay loop src="assets/vid/weddingappbg.mp4"></video> -->
+    <div class="bottomLogin">
+        <ion-label class="lblLogin"><h3>Join us with</h3> </ion-label>
+        <div class="inner">
+            <!-- <button ion-button class="btnSocialLogin" (click)="fbLogin()" color="Default" block icon-left><ion-icon name="logo-facebook" class="fbBtn"></ion-icon></button> -->
+            <img src="img/logo-facebook.png" class="logoBtn" (click)="fbLogin()" >
+        <!-- </div>
+        <div class="inner">  -->
+            <!-- <button ion-button class="btnSocialLogin" block color="danger" (click)="googleLogin()"><ion-icon name="logo-googleplus" class="googleBtn"></ion-icon></button>          
+             -->
+            <img src="img/logo-google.png" class="logoBtn" (click)="googleLogin()" >
+          </div>
     </div>
 </ion-content>

@@ -1,0 +1,56 @@
+page-imagegallery {
+    .imageSlidesPage{
+        background: transparent;
+        background-color: black;
+    }
+
+    .ion-row{        
+        flex: 1 1 auto;
+        float: left;
+        position: relative;
+    }
+
+    .ion-col{
+        background-color: black;
+        background-repeat:no-repeat;
+        background-size:cover;
+        width:100%;
+    }
+
+    .thumb-img {
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .imageLast {
+        float:left; /* important */
+    	position:relative; /* important(so we can absolutely position the description div */
+    }   
+
+    div.description{
+        // position:absolute; /* absolute position (so we can position it where we want)*/
+        // bottom:0px; /* position will be on bottom */
+        // left:0px;
+        // width:100%;
+        // /* styling bellow */
+        // background-color:black;
+        // color:white;
+        // opacity:0.6; /* transparency */
+        // filter:alpha(opacity=60); /* IE transparency */
+
+        top: calc(50% - 25px);
+        position: absolute;
+    /* bottom: calc(50% - 50px); */
+        left: calc(50% - 25px);
+        width: 50px;
+    /* background-color: black; */
+    /* color: white; */
+    /* opacity: 0.6; */
+    }
+    p.description_content{
+        padding:10px;
+        margin:0px;
+        font-size: 30px;
+    }
+}

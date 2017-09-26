@@ -1,0 +1,54 @@
+<!--
+  Generated template for the CreateeventPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar transparent color="primary">
+    <ion-buttons start left>
+      <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    </ion-buttons>
+    <ion-title>Edit Event</ion-title>
+    <ion-buttons start right>
+      <button ion-button block (click)="EditEvent()">Update</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="editevent">
+  <ion-item class="itemClass">
+    <ion-label color="primary" floating>Name</ion-label>
+    <ion-input type="text" class="inputClass" [(ngModel)]="Name"></ion-input>
+  </ion-item>
+
+  <ion-item class="itemClass">
+    <ion-label color="primary" floating>Description</ion-label>
+    <ion-textarea type="text" class="inputClass" [(ngModel)]="Description"></ion-textarea>
+  </ion-item>
+
+  <ion-item class="itemClass">
+    <ion-label color="primary" floating>Date</ion-label>
+    <ion-datetime type="date" class="inputClass" displayFormat="DD MMMM YYYY, DDDD, hh:mm A" [(ngModel)]="EventDate"></ion-datetime>
+  </ion-item>
+
+  <!-- <ion-item class="itemClass">
+    <ion-label>Save the date</ion-label>
+    <ion-checkbox class="inputClass" [(ngModel)]="isDateSaved"></ion-checkbox>
+  </ion-item> -->
+
+  <button ion-button round (click)="presentActionSheet()">Upload Media</button>
+  <ion-label color="primary" *ngIf="imageCount > 1">{{imageCount}} images selected</ion-label>
+  <!-- <button ion-button round (click)="SetLocation()">Set Location</button>
+  <ion-label color="primary" *ngIf="(eventLatitude != null) && (eventLongitude != null)">Location Done</ion-label> -->
+
+  <!-- <div class="postEventBtn">
+    <button ion-button full (click)="EditEvent()">Update</button>
+  </div> -->
+<!-- 
+   <ion-footer no-padding style="margin:0rem 0rem!Important;">
+    <button ion-button block color="primary" (click)="EditEvent()">Update</button>
+  </ion-footer> -->
+</ion-content>

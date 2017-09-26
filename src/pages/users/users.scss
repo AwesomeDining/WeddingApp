@@ -1,3 +1,20 @@
 page-users {
+.users{
+    background: url(../img/home.png) transparent;
+background-repeat:no-repeat;
+background-size:cover;
+width:100%;
+}
+ion-content.users{	
+	ion-list {
+		.item {
+			background: transparent;
+            color:white;
+		}
+	}
+}
 
+ion-header{
+    background-color: rgba(101, 98, 98, 0.13) !important;
+}
 }
