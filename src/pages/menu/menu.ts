@@ -140,19 +140,19 @@ export class MenuPage {
       content: 'Please wait...'
     });
     loading.present();
-    env.nativeStorage.getItem('deviceToken').then(function (deviceToken) {
+    env.nativeStorage.getItem('user').then(function (deviceToken) {
       let logOutParams = {
-        DeviceId: deviceToken.token,
+        DeviceId: deviceToken.DeviceId,
         Id: env.user.Id
       }
-      env.token = deviceToken.token;
+      // env.token = deviceToken.DeviceId;
       env.apiService.logout(logOutParams).then(data => {
         env.nativeStorage.clear();
-        env.nativeStorage.setItem('deviceToken', {
-          token: env.token
-        }).then(() => {
-          console.log('Device registered', env.token);
-        })
+        // env.nativeStorage.setItem('deviceToken', {
+        //   token: env.token
+        // }).then(() => {
+        //   console.log('Device registered', env.token);
+        // })
         console.log(data);
         nav.push(LoginPage);
         loading.dismiss();

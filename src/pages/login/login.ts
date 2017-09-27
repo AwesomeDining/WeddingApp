@@ -8,6 +8,7 @@ import { Network } from '@ionic-native/network';
 
 import { NativeStorage } from '@ionic-native/native-storage';
 //import { Push, PushToken } from '@ionic/cloud-angular';
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
 
 //import firebase from 'firebase';
 
@@ -26,14 +27,49 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, private fb: Facebook, private googlePlus: GooglePlus,
     public nativeStorage: NativeStorage, private loadingCtrl: LoadingController, public network: Network,
-    public apiService: ApiServiceProvider, public toast: ToastController) {
+    public apiService: ApiServiceProvider, public toast: ToastController, private push: Push) {
     let env = this;
-    env.nativeStorage.getItem('deviceToken').then(function (deviceToken) {
-      console.log(deviceToken);
-      env.token = deviceToken.token;
-    }, err => {
-      console.log(err);
+    // env.nativeStorage.getItem('deviceToken').then(function (deviceToken) {
+    //   console.log(deviceToken);
+    //   env.token = deviceToken.token;
+    // }, err => {
+    //   console.log(err);
+    // });
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
     });
+    const options: PushOptions = {
+      android: {
+        senderID: '885563698719',
+        sound: 'true'
+      },
+      ios: {
+        alert: 'true',
+        badge: true,
+        sound: 'true'
+      },
+      windows: {},
+      browser: {
+        pushServiceURL: 'http://push.api.phonegap.com/v1/push'
+      }
+    };
+
+    if (env.network.type !== 'none') {
+      loading.present();
+      const pushObject: PushObject = this.push.init(options);
+      pushObject.on('registration').subscribe((registration: any) => {
+        env.token = registration.registrationId
+        loading.dismiss();
+      });
+    }
+    else {
+      let toast = this.toast.create({
+        message: "Please check the internet connection.",
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
+    }
   }
 
   googleLogin() {
@@ -69,6 +105,9 @@ export class LoginPage {
               loading.dismiss();
               console.log(error);
             });
+        }, function (error) {
+          loading.dismiss();
+          console.log(error);
         });
     }
     else {
@@ -118,13 +157,14 @@ export class LoginPage {
                   loading.dismiss();
                   console.log(error);
                 });
-              // });
+            }, function (error) {
+              loading.dismiss();
+              console.log(error);
             });
+        }, function (error) {
+          loading.dismiss();
+          console.log(error);
         });
-      // }, function (error) {
-      //   loading.dismiss();
-      //   console.log(error);
-      // });
     }
     else {
       let toast = this.toast.create({
@@ -158,46 +198,34 @@ export class LoginPage {
             picture: userData.UserImageUrl,
             isAdmin: userData.IsAdmin,
             Status: userData.Status,
-            Id: userData.Id
+            Id: userData.Id,
+            DeviceId: env.token
           }).then(function () {
-            env.apiService.loadContact()
-              .then(data => {
-                env.nativeStorage.setItem('ContactDetail', {
-                  contactdetail: data
-                }).then(function () {
-                  env.nativeStorage.getItem('loginPlatform')
-                    .then(function (userData) {
-                      if (userData.platform == "2") {
-                        env.fb.logout().then(function (response) {
-                          env.navCtrl.setRoot(MenuPage);
-                          loading.dismiss();
-                        }).catch(function (error) {
-                          loading.dismiss();
-                          console.log(error);
-                        });
-                      }
-                      if (userData.platform == "1") {
-                        env.googlePlus.logout()
-                          .then(response => {
-                            env.navCtrl.setRoot(MenuPage);
-                            loading.dismiss();
-                          }, function (error) {
-                            loading.dismiss();
-                            console.log(error);
-                          })
-                      }
-                    });
-                }, function (error) {
-                  loading.dismiss();
-                  console.log(error);
-                });
-              }, (err) => {
-                console.log(err);
-                loading.dismiss();
+            env.nativeStorage.getItem('loginPlatform')
+              .then(function (userData) {
+                if (userData.platform == "2") {
+                  env.fb.logout().then(function (response) {
+                    env.navCtrl.setRoot(MenuPage);
+                    loading.dismiss();
+                  }).catch(function (error) {
+                    loading.dismiss();
+                    console.log(error);
+                  });
+                }
+                if (userData.platform == "1") {
+                  env.googlePlus.logout()
+                    .then(response => {
+                      env.navCtrl.setRoot(MenuPage);
+                      loading.dismiss();
+                    }, function (error) {
+                      loading.dismiss();
+                      console.log(error);
+                    })
+                }
               });
-          }, (err) => {
-            console.log(err);
+          }, function (error) {
             loading.dismiss();
+            console.log(error);
           });
       }, (err) => {
         console.log(err);
@@ -208,5 +236,4 @@ export class LoginPage {
       loading.dismiss();
     });
   }
-
 }

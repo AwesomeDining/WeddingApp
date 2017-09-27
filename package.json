@@ -25,6 +25,7 @@
         "@ionic-native/core": "^3.14.0",
         "@ionic-native/date-picker": "^4.1.0",
         "@ionic-native/facebook": "^4.2.1",
+        "@ionic-native/fcm": "^4.2.1",
         "@ionic-native/file": "^4.1.0",
         "@ionic-native/file-path": "^4.1.0",
         "@ionic-native/geolocation": "^4.1.0",
@@ -57,7 +58,6 @@
         "cordova-plugin-file-transfer": "^1.6.3",
         "cordova-plugin-filepath": "^1.0.2",
         "cordova-plugin-geolocation": "^2.4.3",
-        "cordova-plugin-googlemaps": "^2.0.6",
         "cordova-plugin-googleplus": "^5.1.1",
         "cordova-plugin-inappbrowser": "^1.7.1",
         "cordova-plugin-nativestorage": "^2.2.2",
@@ -112,16 +112,12 @@
             "cordova-plugin-inappbrowser": {},
             "cordova-plugin-buildinfo": {},
             "cordova-plugin-browsertab": {},
-            "cordova-plugin-googlemaps": {
-                "API_KEY_FOR_ANDROID": "AIzaSyDUACJKoehSZnVsrTH_pqnUsVUOL6RhxZY",
-                "API_KEY_FOR_IOS": "AIzaSyDUACJKoehSZnVsrTH_pqnUsVUOL6RhxZY"
-            },
-            "phonegap-plugin-push": {
-                "SENDER_ID": "885563698719"
-            },
             "cordova-plugin-facebook4": {
                 "APP_ID": "730403423816617",
                 "APP_NAME": "WedLive"
+            },
+            "phonegap-plugin-push": {
+                "SENDER_ID": "885563698719"
             }
         },
         "platforms": [

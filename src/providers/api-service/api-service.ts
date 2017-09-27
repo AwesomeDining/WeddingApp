@@ -17,7 +17,7 @@ export class ApiServiceProvider {
   events: any;
   isConnected: any;
   ImageURL: any;
-  public API_URL = "http://ramanwedding-001-site2.itempurl.com/api/";
+  public API_URL = "http://ramanwedding-001-site1.itempurl.com/api/";
   public API_KEY = "AIzaSyDUACJKoehSZnVsrTH_pqnUsVUOL6RhxZY";
   constructor(public http: Http, public network: Network) {
     console.log('Hello ApiServiceProvider Provider');

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { ApiServiceProvider } from '../../providers/api-service/api-service';
-import { CallNumber } from '@ionic-native/call-number';
+//import { CallNumber } from '@ionic-native/call-number';
 /**
  * Generated class for the ContactdetailPage page.
  *
@@ -18,8 +18,8 @@ export class ContactdetailPage {
   public htmlString = [];
   // public htmlData = { HtmlText: '', ContactNumber: '' };
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public apiService: ApiServiceProvider, private callNumber: CallNumber, public nativeStorage: NativeStorage, private loadingCtrl: LoadingController) {
-    this.loadDetail();
+    public apiService: ApiServiceProvider, public nativeStorage: NativeStorage, private loadingCtrl: LoadingController) {
+    //this.loadDetail();
   }
 
   ionViewDidLoad() {
@@ -54,9 +54,12 @@ export class ContactdetailPage {
   }
 
   launchDialer(n: string) {
-    this.callNumber.callNumber(n, true)
-      .then(() => console.log('Launched dialer!'))
-      .catch(() => console.log('Error launching dialer'));
+    window.open("tel:" + n);
+
+    // this.callNumber.callNumber(n, true)
+    //   .then(() => console.log('Launched dialer!'))
+    //   .catch(() => console.log('Error launching dialer'));
   }
 
 }
+
