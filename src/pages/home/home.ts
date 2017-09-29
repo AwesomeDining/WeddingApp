@@ -106,7 +106,11 @@ export class HomePage {
   }
 
   ionViewDidEnter() {
+    console.log("ionViewDidEnter");
+  }
 
+  ionViewDidLoad() {
+    console.log("ionViewDidLoad");
   }
 
   getEvents() {
@@ -125,9 +129,9 @@ export class HomePage {
             var dt = new Date(element.EventDate);
             var timezone = dt.toString().slice(-11, -6);
             var h = parseInt(timezone.slice(-4, -2));
-            console.log(h);
+            // console.log(h);
             var m = parseInt(timezone.slice(-2));
-            console.log(m);
+            // console.log(m);
             element.EventDate = new Date(dt.getTime() + ((h * 60 + m) * 60000));
           }
           element.imageCount = element.ImageUrl.length - 1;

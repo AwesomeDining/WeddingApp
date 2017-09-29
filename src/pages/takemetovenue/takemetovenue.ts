@@ -87,35 +87,58 @@ export class TakeMeToVenuePage {
         });
         if (env.network.type !== 'none') {
             loading.present();
-            env.apiService.getEventDetail(event.Id).then(result => {
-                if (result['Lat'] && result['Long']) {
-                    this.geolocation.getCurrentPosition().then((resp) => {
-                        this.currLat = resp.coords.latitude;
-                        this.currLong = resp.coords.longitude;
+            env.launchNavigator.availableApps().then(function (results) {
+                let appAvailable = [];
+                for (var app in results) {
+                    //console.log(env.launchNavigator.getAppDisplayName(app) + (results[app] ? " is" : " isn't") + " available");
+                    appAvailable.push(results[app] ? "1" : "0");
+                }
+                console.log(appAvailable);
+                if (appAvailable.indexOf("1") > -1) {
+                    console.log("Available");
+                    env.apiService.getEventDetail(event.Id).then(result => {
+                        if (result['Lat'] && result['Long']) {
+                            env.geolocation.getCurrentPosition().then((resp) => {
+                                env.currLat = resp.coords.latitude;
+                                env.currLong = resp.coords.longitude;
+                                loading.dismiss();
+                                env.launchNavigator.navigate([result['Lat'].toString(), result['Long'].toString()], {
+                                    start: "" + env.currLat + "," + env.currLong + ""
+                                }).catch((error) => {
+                                    loading.dismiss();
+                                    console.log(error);
+                                });
+                            }).catch((error) => {
+                                loading.dismiss();
+                                console.log('Error getting location', error);
+                            });
+                        }
+                        else {
+                            loading.dismiss();
+                            env.toast.show('Location not provided', '5000', 'bottom').subscribe(
+                                toast => {
+                                    console.log(toast);
+                                }
+                            );
+                        }
+                    }, function (error) {
+                        console.log(error);
                         loading.dismiss();
-                        this.launchNavigator.navigate([result['Lat'].toString(), result['Long'].toString()], {
-                            start: "" + this.currLat + "," + this.currLong + ""
-                        });
-                    }).catch((error) => {
-                        loading.dismiss();
-                        console.log('Error getting location', error);
                     });
                 }
                 else {
-                    loading.dismiss();
-                    this.toast.show('Location not provided', '5000', 'bottom').subscribe(
-                        toast => {
-                            console.log(toast);
-                        }
-                    );
+                    let toastApps = env.toastServ.create({
+                        message: "Map Application Not Found in Phone.",
+                        duration: 3000,
+                        position: 'bottom'
+                    });
+                    toastApps.present();
                 }
-            }, function (error) {
-                console.log(error);
-                loading.dismiss();
             });
+
         }
         else {
-            let toast = this.toastServ.create({
+            let toast = env.toastServ.create({
                 message: "Please check the internet connection.",
                 duration: 3000,
                 position: 'bottom'

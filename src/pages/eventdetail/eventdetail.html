@@ -22,7 +22,7 @@
     <p style="background: transparent; color: white; font-size: 2.0rem;">{{EventData.Description}}</p>
   </ion-item>
 
-  <ion-item class="itemClass" *ngIf="EventData.EventDate">
+  <ion-item text-wrap no-lines class="itemClass" *ngIf="EventData.EventDate">
     <ion-label class="lblClass">{{EventData.EventDate | date:'dd MMMM yyyy, EEEE, hh:mm a'}}</ion-label>
   </ion-item>
 

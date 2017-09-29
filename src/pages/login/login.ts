@@ -70,6 +70,22 @@ export class LoginPage {
       });
       toast.present();
     }
+
+    // pushObject.on('notification').subscribe((notification: any) => {
+    //   // if (notification.additionalData.foreground) {
+    //   //   let toast = this.toast.create({
+    //   //     message: notification.message,
+    //   //     duration: 3000,
+    //   //     position: 'bottom'
+    //   //   });
+    //   //   toast.present();
+    //   // }
+    //   pushObject.finish().then(e => {
+    //     console.log(e);
+    //   }).catch(e => {
+    //     console.log("ERROR NOTIFICATION", e);
+    //   })
+    // });
   }
 
   googleLogin() {

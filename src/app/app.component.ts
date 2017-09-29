@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, Nav, ToastController } from 'ionic-angular';
+import { Platform, Nav, ToastController, App } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -18,7 +18,7 @@ export class MyApp {
   @ViewChild(Nav) nav;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
-    public nativeStorage: NativeStorage, public toast: ToastController, private push: Push) {
+    public nativeStorage: NativeStorage, public toast: ToastController, private push: Push, public appCtrl: App) {
     this.initializeApp();
   }
 
@@ -45,6 +45,25 @@ export class MyApp {
           env.nav.setRoot(LoginPage);
         });
     });
+
+    this.platform.resume.subscribe(() => {
+      let env = this;
+      env.nativeStorage.getItem('user')
+        .then(function (data) {
+          if (data.Status === 10) {
+            env.nav.setRoot(LoginPage);
+          }
+          else {
+            // user is previously logged and we have his data
+            // we will let him access the app
+            // env.nav.setRoot(MenuPage);
+            env.appCtrl.getRootNav().setRoot(MyApp);
+          }
+        }, function (error) {
+          //we don't have the user data so we will ask him to log in
+          env.nav.setRoot(LoginPage);
+        });
+    });
   }
 
   pushSetup() {
@@ -63,7 +82,8 @@ export class MyApp {
     const options: PushOptions = {
       android: {
         senderID: '885563698719',
-        sound: 'true'
+        sound: 'true',
+        forceShow: true,
       },
       ios: {
         alert: 'true',
@@ -79,14 +99,19 @@ export class MyApp {
     const pushObject: PushObject = this.push.init(options);
 
     pushObject.on('notification').subscribe((notification: any) => {
-      if (notification.additionalData.foreground) {
-        let toast = this.toast.create({
-          message: notification.message,
-          duration: 3000,
-          position: 'bottom'
-        });
-        toast.present();
-      }
+      // if (notification.additionalData.foreground) {
+      //   let toast = this.toast.create({
+      //     message: notification.message,
+      //     duration: 3000,
+      //     position: 'bottom'
+      //   });
+      //   toast.present();
+      // }
+      pushObject.finish().then(e => {
+        console.log(e);
+      }).catch(e => {
+        console.log("ERROR NOTIFICATION", e);
+      })
     });
 
     // pushObject.on('registration').subscribe((registration: any) => {

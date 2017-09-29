@@ -17,7 +17,7 @@
   <ion-grid>
     <ion-row wrap class="ion-row" *ngFor="let row of grid; let rIndex = index;">
       <ion-col class="ion-col" style="max-height: 30%; max-width: 33%; min-height:30%; min-width:33%;" width-33 *ngFor="let file_uri of row; let cIndex = index;">
-        <img [src]="file_uri.Url" (click)="showImage($event, rIndex, cIndex)" *ngIf="(file_uri.Url.indexOf('.jpg') > -1) && file_uri.Url"
+        <img [src]="file_uri.Thumbnail" (click)="showImage($event, rIndex, cIndex)" *ngIf="(file_uri.Url.indexOf('.jpg') > -1) && file_uri.Url"
           class="thumb-img">
         <img [src]="file_uri.Thumbnail" (click)="showImage($event, rIndex, cIndex)" *ngIf="(file_uri.Url.indexOf('.mp4') > -1) && file_uri.Url"
           class="thumb-img imageLast">

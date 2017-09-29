@@ -139,28 +139,38 @@ export class MenuPage {
     let loading = env.loadingCtrl.create({
       content: 'Please wait...'
     });
-    loading.present();
-    env.nativeStorage.getItem('user').then(function (deviceToken) {
-      let logOutParams = {
-        DeviceId: deviceToken.DeviceId,
-        Id: env.user.Id
-      }
-      // env.token = deviceToken.DeviceId;
-      env.apiService.logout(logOutParams).then(data => {
-        env.nativeStorage.clear();
-        // env.nativeStorage.setItem('deviceToken', {
-        //   token: env.token
-        // }).then(() => {
-        //   console.log('Device registered', env.token);
-        // })
-        console.log(data);
-        nav.push(LoginPage);
+    if (this.network.type !== 'none') {
+      loading.present();
+      env.nativeStorage.getItem('user').then(function (deviceToken) {
+        let logOutParams = {
+          DeviceId: deviceToken.DeviceId,
+          Id: env.user.Id
+        }
+        // env.token = deviceToken.DeviceId;
+        env.apiService.logout(logOutParams).then(data => {
+          env.nativeStorage.clear();
+          // env.nativeStorage.setItem('deviceToken', {
+          //   token: env.token
+          // }).then(() => {
+          //   console.log('Device registered', env.token);
+          // })
+          console.log(data);
+          nav.push(LoginPage);
+          loading.dismiss();
+        });
+      }, err => {
+        console.log(err);
         loading.dismiss();
       });
-    }, err => {
-      console.log(err);
-      loading.dismiss();
-    });
+    }
+    else {
+      let toast = this.toast.create({
+        message: "Please check the internet connection.",
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
+    }
 
     // env.nativeStorage.getItem('loginPlatform')
     //   .then(function (userData) {

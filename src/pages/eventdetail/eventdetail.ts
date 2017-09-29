@@ -75,29 +75,52 @@ export class EventdetailPage {
   }
 
   Locate() {
+    let env = this;
     let loading = this.loadingCtrl.create({
       content: 'Please wait...',
       showBackdrop: true,
       enableBackdropDismiss: true
     });
-    if (this.network.type !== 'none') {
-      if (this.eventLatitude && this.eventLongitude) {
-        loading.present();
-        this.geolocation.getCurrentPosition().then((resp) => {
-          this.currLat = resp.coords.latitude;
-          this.currLong = resp.coords.longitude;
-          loading.dismiss();
-          this.launchNavigator.navigate([this.eventLatitude, this.eventLongitude], {
-            start: "" + this.currLat + "," + this.currLong + ""
-          });
-        }).catch((error) => {
-          loading.dismiss();
-          console.log('Error getting location', error);
+    if (env.network.type !== 'none') {
+      if (env.eventLatitude && env.eventLongitude) {
+        env.launchNavigator.availableApps().then(function (results) {
+          let appAvailable = [];
+          for (var app in results) {
+            //console.log(env.launchNavigator.getAppDisplayName(app) + (results[app] ? " is" : " isn't") + " available");
+            appAvailable.push(results[app] ? "1" : "0");
+          }
+          console.log(appAvailable);
+          if (appAvailable.indexOf("1") > -1) {
+            console.log("Available");
+            loading.present();
+            env.geolocation.getCurrentPosition().then((resp) => {
+              env.currLat = resp.coords.latitude;
+              env.currLong = resp.coords.longitude;
+              loading.dismiss();
+              env.launchNavigator.navigate([env.eventLatitude, env.eventLongitude], {
+                start: "" + env.currLat + "," + env.currLong + ""
+              }).catch((error) => {
+                loading.dismiss();
+                console.log(error);
+              });
+            }).catch((error) => {
+              loading.dismiss();
+              console.log('Error getting location', error);
+            });
+          }
+          else {
+            let toastApps = env.toastServ.create({
+              message: "Map Application Not Found in Phone.",
+              duration: 3000,
+              position: 'bottom'
+            });
+            toastApps.present();
+          }
         });
       }
       else {
         loading.dismiss();
-        this.toast.show('Location not provided', '5000', 'bottom').subscribe(
+        env.toast.show('Location not provided', '5000', 'bottom').subscribe(
           toast => {
             console.log(toast);
           }
@@ -105,7 +128,7 @@ export class EventdetailPage {
       }
     }
     else {
-      let toast = this.toastServ.create({
+      let toast = env.toastServ.create({
         message: "Please check the internet connection.",
         duration: 3000,
         position: 'bottom'
