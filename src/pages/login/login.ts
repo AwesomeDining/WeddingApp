@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, Loading, ToastController } from 'ionic-angular';
+import { NavController, LoadingController, Loading, ToastController, NavParams } from 'ionic-angular';
 import { MenuPage } from '../menu/menu';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Facebook } from '@ionic-native/facebook';
@@ -8,7 +8,7 @@ import { Network } from '@ionic-native/network';
 
 import { NativeStorage } from '@ionic-native/native-storage';
 //import { Push, PushToken } from '@ionic/cloud-angular';
-import { Push, PushObject, PushOptions } from '@ionic-native/push';
+// import { Push, PushObject, PushOptions } from '@ionic-native/push';
 
 //import firebase from 'firebase';
 
@@ -27,49 +27,53 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, private fb: Facebook, private googlePlus: GooglePlus,
     public nativeStorage: NativeStorage, private loadingCtrl: LoadingController, public network: Network,
-    public apiService: ApiServiceProvider, public toast: ToastController, private push: Push) {
+    public apiService: ApiServiceProvider, public toast: ToastController, public navParams: NavParams) {
     let env = this;
+
+
+    env.token = navParams.get('Token');
+    console.log("LoginToken =>" + env.token);
     // env.nativeStorage.getItem('deviceToken').then(function (deviceToken) {
     //   console.log(deviceToken);
     //   env.token = deviceToken.token;
     // }, err => {
     //   console.log(err);
     // });
-    let loading = this.loadingCtrl.create({
-      content: 'Please wait...'
-    });
-    const options: PushOptions = {
-      android: {
-        senderID: '885563698719',
-        sound: 'true'
-      },
-      ios: {
-        alert: 'true',
-        badge: true,
-        sound: 'true'
-      },
-      windows: {},
-      browser: {
-        pushServiceURL: 'http://push.api.phonegap.com/v1/push'
-      }
-    };
+    // let loading = this.loadingCtrl.create({
+    //   content: 'Please wait...'
+    // });
+    // const options: PushOptions = {
+    //   android: {
+    //     senderID: '885563698719',
+    //     sound: 'true'
+    //   },
+    //   ios: {
+    //     alert: 'true',
+    //     badge: true,
+    //     sound: 'true'
+    //   },
+    //   windows: {},
+    //   browser: {
+    //     pushServiceURL: 'http://push.api.phonegap.com/v1/push'
+    //   }
+    // };
 
-    if (env.network.type !== 'none') {
-      loading.present();
-      const pushObject: PushObject = this.push.init(options);
-      pushObject.on('registration').subscribe((registration: any) => {
-        env.token = registration.registrationId
-        loading.dismiss();
-      });
-    }
-    else {
-      let toast = this.toast.create({
-        message: "Please check the internet connection.",
-        duration: 3000,
-        position: 'bottom'
-      });
-      toast.present();
-    }
+    // if (env.network.type !== 'none') {
+    //   loading.present();
+    //   const pushObject: PushObject = this.push.init(options);
+    //   pushObject.on('registration').subscribe((registration: any) => {
+    //     env.token = registration.registrationId
+    //     loading.dismiss();
+    //   });
+    // }
+    // else {
+    //   let toast = this.toast.create({
+    //     message: "Please check the internet connection.",
+    //     duration: 3000,
+    //     position: 'bottom'
+    //   });
+    //   toast.present();
+    // }
 
     // pushObject.on('notification').subscribe((notification: any) => {
     //   // if (notification.additionalData.foreground) {
@@ -124,7 +128,9 @@ export class LoginPage {
         }, function (error) {
           loading.dismiss();
           console.log(error);
-        });
+        }).catch(err => {
+          console.log(err);
+        })
     }
     else {
       let toast = this.toast.create({
@@ -205,7 +211,7 @@ export class LoginPage {
         userData = JSON.parse(fbResult['_body']);
       }
       env.apiService.load(env.regData.UserToken).then(result => {
-        if (result[0]) {
+        if (result[0] && userData === undefined) {
           userData = result[0];
         }
         env.nativeStorage.setItem('user',

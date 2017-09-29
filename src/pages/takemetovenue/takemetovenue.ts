@@ -132,6 +132,7 @@ export class TakeMeToVenuePage {
                         duration: 3000,
                         position: 'bottom'
                     });
+                    loading.dismiss();
                     toastApps.present();
                 }
             });

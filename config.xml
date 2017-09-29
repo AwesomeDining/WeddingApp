@@ -95,11 +95,8 @@
     <plugin name="cordova-plugin-file" spec="^4.3.3" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
     <plugin name="cordova-plugin-filepath" spec="^1.0.2" />
+    <plugin name="cordova-plugin-firebase" spec="^0.1.24" />
     <plugin name="cordova-plugin-geolocation" spec="^2.4.3" />
-    <plugin name="cordova-plugin-googlemaps" spec="^2.0.6">
-        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyDUACJKoehSZnVsrTH_pqnUsVUOL6RhxZY" />
-        <variable name="API_KEY_FOR_IOS" value="AIzaSyDUACJKoehSZnVsrTH_pqnUsVUOL6RhxZY" />
-    </plugin>
     <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
         <variable name="REVERSED_CLIENT_ID" value="apps.googleusercontent.com.738030326158-hkap1lddib3elenf9tlsvr93ish88k3f" />
         <variable name="WEBCLIENTID" value="738030326158-hkap1lddib3elenf9tlsvr93ish88k3f.apps.googleusercontent.com" />
@@ -112,8 +109,5 @@
     <plugin name="cordova-plugin-whitelist" spec="^1.3.1" />
     <plugin name="cordova-plugin-x-toast" spec="^2.6.0" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
-    <plugin name="phonegap-plugin-push" spec="^2.0.0">
-        <variable name="SENDER_ID" value="885563698719" />
-    </plugin>
     <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="^4.0.4" />
 </widget>

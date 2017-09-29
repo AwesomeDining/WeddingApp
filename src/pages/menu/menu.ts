@@ -15,6 +15,7 @@ import { ApiServiceProvider } from '../../providers/api-service/api-service';
 // import { GooglePlus } from '@ionic-native/google-plus';
 import { Network } from '@ionic-native/network';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { Firebase } from '@ionic-native/firebase';
 
 /**
  * Generated class for the MenuPage page.
@@ -42,7 +43,7 @@ export class MenuPage {
   @ViewChild(Nav) nav: Nav;
   public allUser: any;
   token: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public nativeStorage: NativeStorage,
+  constructor(public navCtrl: NavController, public navParams: NavParams, public nativeStorage: NativeStorage, private firebase: Firebase,
     public apiService: ApiServiceProvider, private loadingCtrl: LoadingController, public network: Network, public toast: ToastController) {
     this.rootPage = HomePage;
     this.homePage = HomePage;
@@ -155,7 +156,12 @@ export class MenuPage {
           //   console.log('Device registered', env.token);
           // })
           console.log(data);
-          nav.push(LoginPage);
+          env.firebase.onTokenRefresh()
+            .subscribe((token: string) => {
+              nav.setRoot(LoginPage, {
+                Token: token
+              });
+            });
           loading.dismiss();
         });
       }, err => {

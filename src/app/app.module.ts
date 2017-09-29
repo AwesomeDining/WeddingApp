@@ -44,7 +44,7 @@ import { Transfer } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import { Push } from '@ionic-native/push';
-
+import { Firebase } from '@ionic-native/firebase';
 
 //import { GoogleMaps } from '@ionic-native/google-maps'
 
@@ -129,6 +129,7 @@ import { HttpModule } from '@angular/http';
     FilePath,
     Network,
     Push,
+    Firebase,
     { provide: HAMMER_GESTURE_CONFIG, useClass: ionicGalleryModal.GalleryModalHammerConfig },
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ApiServiceProvider,
